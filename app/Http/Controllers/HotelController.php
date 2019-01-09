@@ -8,9 +8,19 @@ use App\District;
 use App\Sector;
 use App\Country;
 use App\Hotel;
+use App\Room;
+use \Crypt;
 
 class HotelController extends Controller
 {
+
+    public function __construct(){
+
+        $this->middleware("auth")->except('show');
+        $this->middleware("isOperator")->only('create');
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,18 +60,18 @@ class HotelController extends Controller
        
         $this->validate($request,[
 
-            // 'name' => 'required|string|max:50|unique:hotels',
-            // 'description' => 'required|string|max:500',
-            // 'province' => 'required|integer',
-            // 'district' => 'required|integer',
-            // 'sector' => 'required|integer',
-            // 'email' => 'required|string',
-            // 'website' => 'required|string',
-            // 'telephone' => 'required|integer',
-            // 'hotel' => 'string|required',
-            // 'phone'  => 'required|string|max:50',
-            // 'website' => 'required|string|max:50'
-            // 'logo' => 'required'
+            'name' => 'required|string|max:50|unique:hotels',
+            'description' => 'required|string|max:500',
+            'star' => 'required|integer',
+            'country' => 'required|integer',
+            'province' => 'required|integer',
+            'district' => 'required|integer',
+            'sector' => 'required|integer',
+            'email' => 'required|string',
+            'website' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+            'telephone' => 'required|numeric',
+            'logo' => 'required|image|mimes:jpeg,png,jpg|dimensions:min_width=300,min_height=200|max:20000',
+            'background' => 'image|mimes:jpeg,png,jpg|dimensions:min_width=400,min_height=400',
 
         ]);
 
@@ -129,9 +139,17 @@ class HotelController extends Controller
      */
     public function show($id)
     {
-        $hotel = Hotel::find($id);
-       
-        return view('singlelist')->with("hotel",$hotel);
+
+        $hotel_id = Crypt::decrypt($id);
+
+        $hotel = Hotel::find($hotel_id);
+
+        $rooms = Room::where('hotel_id',$hotel_id)->get();
+
+
+        // return $hotel->user->Firstname;
+
+            return view('singlelist')->with("hotel",$hotel)->with('rooms',$rooms);
 
     }
 
@@ -143,7 +161,15 @@ class HotelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $hotel = Hotel::find($id);
+        $province = Province::all();
+        $district = District::all();
+        $sector = Sector::all();
+        $country = country::all();
+
+
+            return view('operator.edithotel')->with('hotel',$hotel)->with('country',$country)->with('province',$province)->with('district',$district)->with('sector',$sector);
+
     }
 
     /**
@@ -155,7 +181,37 @@ class HotelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+
+            'name' => 'required|string|max:50',
+            'description' => 'required|string|max:500',
+            'star' => 'required|integer',
+            'country' => 'required|integer',
+            'province' => 'required|integer',
+            'district' => 'required|integer',
+            'sector' => 'required|integer',
+            'email' => 'required|string',
+            'website' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+            'telephone' => 'required|numeric',
+            
+        ]);
+
+            $hotel = Hotel::find($id);
+            $hotel->name = $request->Input("name");
+            $hotel->description =  $request->Input("description"); 
+            $hotel->star = $request->Input("star");
+            $hotel->country_id =  $request->Input("country");
+            $hotel->province_id =  $request->Input("province");
+            $hotel->district_id =  $request->Input("district");
+            $hotel->sector_id =  $request->Input("sector");
+            $hotel->website =  $request->Input("website");
+            $hotel->email =  $request->Input("email");
+            $hotel->phone = $request->Input("telephone");
+            $hotel->save();
+
+                return redirect('/hotel');
+
+    
     }
 
     /**
@@ -166,6 +222,34 @@ class HotelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(Room::where('hotel_id',$id)->delete()){
+            
+            Hotel::where('id',$id)->delete();
+
+                echo "okkk";
+        }
     }
+
+
+    public function adminViewHotel(){
+
+        $hotel = Hotel::all();
+
+            return view('admin.hotel')->with('hotel',$hotel);
+
+
+    }
+
+
+    public function district(Request $dis){
+
+        $value = $dis->Input("value");
+        $district = District::whereProvince_id($value)->get();
+            $output = '';
+            foreach($district as $row){
+                $output .='<option value="'.$row->id.'">'.$row->name.'</option>';
+            }
+                return $output;
+    }
+
 }

@@ -31,5 +31,23 @@ class Hotel extends Model
     	return $this->belongsTo("App\Sector");
 
     }
+
+    public function User(){
+
+        return $this->belongsTo('App\User');
+
+    }
+
+    public function rooms(){
+
+        return $this->hasMany('App\Room');
+        
+    }
+
+    public function bookings(){
+
+        return $this->hasManyThrough(Booking::Class, Room::Class);
+        
+    }
 }
 

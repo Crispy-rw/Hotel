@@ -15,6 +15,7 @@
         <link type="text/css" rel="stylesheet" href="{{asset('css/plugins.css')}}">
         <link type="text/css" rel="stylesheet" href="{{asset('css/style.css')}}">
         <link type="text/css" rel="stylesheet" href="{{asset('css/color.css')}}">
+        <script type="text/javascript" href=" {{asset('assets/js/app.js')}}"></script>
         <!--=============== favicons ===============-->
         <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}">
     </head>
@@ -113,23 +114,7 @@ btn{display:inline-block;font-weight:400;text-align:center;white-space:nowrap;ve
             <header class="main-header dark-header fs-header sticky">
                 <div class="header-inner">
                     <div class="logo-holder">
-                        <a href="index.html"><img src="{{asset('images/logo.png')}}" alt=""></a>
-                    </div>
-                    <div class="header-search vis-header-search">
-                        <div class="header-search-input-item">
-                            <input type="text" placeholder="Keywords" value=""/>
-                        </div>
-                        <div class="header-search-select-item">
-                            <select data-placeholder="All Categories" class="chosen-select" >
-                                <option>All Categories</option>
-                                <option>Shops</option>
-                                <option>Hotels</option>
-                                <option>Restaurants</option>
-                                <option>Fitness</option>
-                                <option>Events</option>
-                            </select>
-                        </div>
-                        <button class="header-search-button" >Search</button>
+                        <a href="/"><img src="{{asset('images/logo.png')}}" alt=""></a>
                     </div>
                     <div class="show-search-button"><i class="fa fa-search"></i> <span>Search</span></div>
                     @guest
@@ -172,7 +157,7 @@ btn{display:inline-block;font-weight:400;text-align:center;white-space:nowrap;ve
                         <nav>
                             <ul>
                                 <li>
-                                    <a href="#">Home </a>
+                                    <a href="/">Home </a>
                                 </li>
                                 <li>
                                     <a href="#">Listings </a>

@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Hash;
+
+use App\User;
+use App\Restaurent;
+use App\Hotel;
+
 class UserController extends Controller
 {
     /**
@@ -11,6 +17,35 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function search(Request $key){
+
+
+        $this->validate($key,[
+            'keyword' => 'required',
+            'cat' => 'required'
+        ]);
+       
+       $name = "%%".$key->get("keyword")."%%";
+       $keyword = $key->get("cat");
+
+
+               if($keyword == 1){
+
+                    $hotel = Hotel::where('name','LIKE',$name)->get();
+
+                        return view("search")->with('hotel',$hotel)->with('resto');
+
+               }else{
+
+                    $resto = Restaurent::where('name','LIKE',$name)->get();
+
+                        return view("search")->with('resto',$resto)->with('hotel');
+
+               }
+
+    }
+
+
     public function index()
     {
         //
@@ -81,4 +116,34 @@ class UserController extends Controller
     {
         //
     }
+
+    public function change(Request $key){
+
+
+        $this->validate($key,[
+            'current' => 'required',
+            'password' => 'required',
+            'password_confirmation' => 'required',
+        ]);
+
+            $user = User::find(Auth()->User()->id);
+ 
+ 
+                if (Hash::check($key->get("current"), $user->password))
+                {
+                    if( $key->input("password") == $key->input("password_confirmation") )
+                        {
+                        $user->password = bcrypt($key->input("password"));
+
+                        if( $user->save() )  return redirect('/client')->with('success','Password Changed');;
+        
+                        }
+                    return redirect()->back()->with('error','Confirmation password do not Match');
+        
+                }else{
+        
+                    return redirect()->back()->with('error','Password Do Not match');
+                    
+                }
+     }
 }

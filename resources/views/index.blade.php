@@ -1,93 +1,18 @@
-<!DOCTYPE HTML>
-<html lang="en">
-    <head>
-        <!--=============== basic  ===============-->
-        <meta charset="UTF-8">
-        <title>Tables and Hills</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="robots" content="index, follow"/>
-        <meta name="keywords" content=""/>
-        <meta name="description" content=""/>
-        <!--=============== css  ===============-->
-        <link type="text/css" rel="stylesheet" href="css/reset.css">
-        <link type="text/css" rel="stylesheet" href="css/plugins.css">
-        <link type="text/css" rel="stylesheet" href="css/style.css">
-        <link type="text/css" rel="stylesheet" href="css/color.css">
-        <!--=============== favicons ===============-->
-        <link rel="shortcut icon" href="images/favicon.ico">
-    </head>
-    <body>
-        <!--loader-->
-        <div class="loader-wrap">
-            <div class="pin"></div>
-            <div class="pulse"></div>
-        </div>
-        <!--loader end-->
-        <!-- Main  -->
-        <div id="main">
-            <!-- header-->
-            <header class="main-header dark-header fs-header sticky">
-                <div class="header-inner">
-                    <div class="logo-holder">
-                        <a href="#URL_SITE_SPIP"><img src="images/logo3.png" alt=""></a>
-                    </div>
-                    <div class="header-search vis-header-search">
-                        <div class="header-search-input-item">
-                            <input type="text" placeholder="Keywords" value=""/>
-                        </div>
-                        <div class="header-search-select-item">
-                            <select data-placeholder="All Categories" class="chosen-select" >
-                                <option>All Categories</option>
-                                <option>Hotels</option>
-                                <option>Restaurants</option>
-                                <option>Events</option>
-                            </select>
-                        </div>
-                        <button class="header-search-button" onclick="window.location.href='listing.html'">Search</button>
-                    </div>
-                    <!-- <div class="show-search-button"><i class="fa fa-search"></i> <span>Search</span></div> -->
-                    <a href="dashboard-add-listing.html" class="add-list show-reg-form modal-open">Sign In</a>
-                    <!-- nav-button-wrap-->
-                    <div class="nav-button-wrap color-bg">
-                        <div class="nav-button">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div>
-                    <!-- nav-button-wrap end-->
-                    <!--  navigation -->
-                    <div class="nav-holder main-menu">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a href="#" class="act-link">Home</a>
-                                    <!--second level -->
-                                </li>
-                                <li>
-                                    <a href="#">Hotels <i class="fa fa-caret-down"></i></a>
-                                    <!--second level -->
-                                    <ul>
-                                        <li><a href="#">Kigali</a></li>
-                                        <li><a href="#">Musanze</a></li>
-                                        <li><a href="#">Rubavu</a></li>
-                                        <li><a href="#">Huye</a></li>
-                                        <li><a href="#">Karongi</a></li>
-                                        <li><a href="#">Nyungwe</a></li>
-                                        <li><a href="#">Nyanza</a></li>
-                                        <li><a href="#">Akagera</a></li>
-                                    </ul>
-                                    <!--second level end-->
-                                </li>
-                                <li><a href="#">Restaurants</a></li>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Terms and Conditions</a></li>
-                                <li><a href="#">Contact</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <!-- navigation  end -->
-                </div>
-            </header>
-            <!--  header end -->
+@guest
+
+    @include('layouts.homeheader')
+    
+@else
+
+    @if(Auth()->User()->type == 3)
+        @include('layouts.adminheader')
+    @elseif(Auth()->User()->type == 2)
+        @include('layouts.operatorheader')
+    @else
+        @include('layouts.clientheader')
+    @endif    
+
+@endguest
 
             <!-- wrapper -->
             <div id="wrapper">
@@ -156,178 +81,37 @@
                             <!--listing-carousel-->
                             <div class="listing-carousel  fl-wrap ">
                                 <!--slick-slide-item-->
-                                <div class="slick-slide-item">
-                                    <!-- listing-item -->
-                                    <div class="listing-item">
-                                        <article class="geodir-category-listing fl-wrap">
-                                            <div class="geodir-category-img">
-                                                <img src="images/all/23.jpg" alt="">
-                                                <div class="overlay"></div>
-                                                <div class="list-post-counter"><span>4</span><i class="fa fa-heart"></i></div>
-                                            </div>
-                                            <div class="geodir-category-content fl-wrap">
-                                                <a class="listing-geodir-category" href="listing.html">Hotel</a>
-                                                <div class="listing-avatar"><a href="#"><img src="images/avatar/55.jpg" alt=""></a>
-                                                    <span class="avatar-tooltip">Added By  <strong>Lisa Smith</strong></span>
-                                                </div>
-                                                <h3><a href="?page=article">Serena Hotel</a></h3>
-                                                <p>Sed interdum metus at nisi tempor laoreet.  </p>
-                                                <div class="geodir-category-options fl-wrap">
-                                                    <div class="listing-rating card-popup-rainingvis" data-starrating2="5">
-                                                        <span>(7 reviews)</span>
-                                                    </div>
-                                                    <div class="geodir-category-location"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> KN 1 AV 3 Kigali City - Rwanda</a></div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <!-- listing-item end-->
-                                </div>
-                                <!--slick-slide-item end-->
+                                
                                 <!--slick-slide-item-->
+                              @foreach($hotels as $item)  
                                 <div class="slick-slide-item">
                                     <!-- listing-item -->
                                     <div class="listing-item">
                                         <article class="geodir-category-listing fl-wrap">
                                             <div class="geodir-category-img">
-                                                <img src="images/all/23.jpg" alt="">
+                                                <img src="/storage/logo/{{$item->cover_image}}" style="height: 235px;width: 310px;" alt="">
                                                 <div class="overlay"></div>
                                                 <div class="list-post-counter"><span>4</span><i class="fa fa-heart"></i></div>
                                             </div>
                                             <div class="geodir-category-content fl-wrap">
-                                                <a class="listing-geodir-category" href="listing.html">Hotel</a>
-                                                <div class="listing-avatar"><a href="author-single.html"><img src="images/avatar/55.jpg" alt=""></a>
-                                                    <span class="avatar-tooltip">Added By  <strong>Lisa Smith</strong></span>
+                                                <a class="listing-geodir-category" >Hotel</a>
+                                                <div class="listing-avatar"><img src="images/avatar/55.jpg" alt="">
+                                                    <span class="avatar-tooltip">Added By  <strong>{{$item['user']['Firstname']}}</strong></span>
                                                 </div>
-                                                <h3><a href="?page=article">Serena Hotel</a></h3>
-                                                <p>Sed interdum metus at nisi tempor laoreet.  </p>
+                                                <h3><a href="/hotel/{{Crypt::encrypt($item->id)}}">{{$item->name}}</a></h3>
+                                                <p>{{str_limit($item->description,14)}} </p>
                                                 <div class="geodir-category-options fl-wrap">
-                                                    <div class="listing-rating card-popup-rainingvis" data-starrating2="5">
-                                                        <span>(7 reviews)</span>
+                                                    <div class="listing-rating card-popup-rainingvis" data-starrating2="{{$item->star}}">
+                                                        <span>({{$item->star}} reviews)</span>
                                                     </div>
-                                                    <div class="geodir-category-location"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> KN 1 AV 3 Kigali City - Rwanda</a></div>
+                                                    <div class="geodir-category-location"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> {{$item->district->name}}, {{$item->province->name}} - {{$item->country->name}}</a></div>
                                                 </div>
                                             </div>
                                         </article>
                                     </div>
                                     <!-- listing-item end-->
                                 </div>
-                                <!--slick-slide-item end-->
-                                <!--slick-slide-item-->
-                                <div class="slick-slide-item">
-                                    <!-- listing-item -->
-                                    <div class="listing-item">
-                                        <article class="geodir-category-listing fl-wrap">
-                                            <div class="geodir-category-img">
-                                                <img src="images/all/23.jpg" alt="">
-                                                <div class="overlay"></div>
-                                                <div class="list-post-counter"><span>4</span><i class="fa fa-heart"></i></div>
-                                            </div>
-                                            <div class="geodir-category-content fl-wrap">
-                                                <a class="listing-geodir-category" href="listing.html">Hotel</a>
-                                                <div class="listing-avatar"><a href="author-single.html"><img src="images/avatar/55.jpg" alt=""></a>
-                                                    <span class="avatar-tooltip">Added By  <strong>Lisa Smith</strong></span>
-                                                </div>
-                                                <h3><a href="?page=article">Serena Hotel</a></h3>
-                                                <p>Sed interdum metus at nisi tempor laoreet.  </p>
-                                                <div class="geodir-category-options fl-wrap">
-                                                    <div class="listing-rating card-popup-rainingvis" data-starrating2="5">
-                                                        <span>(7 reviews)</span>
-                                                    </div>
-                                                    <div class="geodir-category-location"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> KN 1 AV 3 Kigali City - Rwanda</a></div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <!-- listing-item end-->
-                                </div>
-                                <!--slick-slide-item end-->
-                                <!--slick-slide-item-->
-                                <div class="slick-slide-item">
-                                    <!-- listing-item -->
-                                    <div class="listing-item">
-                                        <article class="geodir-category-listing fl-wrap">
-                                            <div class="geodir-category-img">
-                                                <img src="images/all/23.jpg" alt="">
-                                                <div class="overlay"></div>
-                                                <div class="list-post-counter"><span>4</span><i class="fa fa-heart"></i></div>
-                                            </div>
-                                            <div class="geodir-category-content fl-wrap">
-                                                <a class="listing-geodir-category" href="listing.html">Hotel</a>
-                                                <div class="listing-avatar"><a href="author-single.html"><img src="images/avatar/55.jpg" alt=""></a>
-                                                    <span class="avatar-tooltip">Added By  <strong>Lisa Smith</strong></span>
-                                                </div>
-                                                <h3 style="color:#6e046d;"><a href="?page=article">Serena Hotel</a></h3>
-                                                <p>Sed interdum metus at nisi tempor laoreet.  </p>
-                                                <div class="geodir-category-options fl-wrap">
-                                                    <div class="listing-rating card-popup-rainingvis" data-starrating2="5">
-                                                        <span>(7 reviews)</span>
-                                                    </div>
-                                                    <div class="geodir-category-location"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> KN 1 AV 3 Kigali City - Rwanda</a></div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <!-- listing-item end-->
-                                </div>
-                                <!--slick-slide-item end-->
-                                <!--slick-slide-item-->
-                                <div class="slick-slide-item">
-                                    <!-- listing-item -->
-                                    <div class="listing-item">
-                                        <article class="geodir-category-listing fl-wrap">
-                                            <div class="geodir-category-img">
-                                                <img src="images/all/23.jpg" alt="">
-                                                <div class="overlay"></div>
-                                                <div class="list-post-counter"><span>4</span><i class="fa fa-heart"></i></div>
-                                            </div>
-                                            <div class="geodir-category-content fl-wrap">
-                                                <a class="listing-geodir-category" href="listing.html">Hotel</a>
-                                                <div class="listing-avatar"><a href="author-single.html"><img src="images/avatar/55.jpg" alt=""></a>
-                                                    <span class="avatar-tooltip">Added By  <strong>Lisa Smith</strong></span>
-                                                </div>
-                                                <h3><a href="?page=article">Serena Hotel</a></h3>
-                                                <p>Sed interdum metus at nisi tempor laoreet.  </p>
-                                                <div class="geodir-category-options fl-wrap">
-                                                    <div class="listing-rating card-popup-rainingvis" data-starrating2="5">
-                                                        <span>(7 reviews)</span>
-                                                    </div>
-                                                    <div class="geodir-category-location"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> KN 1 AV 3 Kigali City - Rwanda</a></div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <!-- listing-item end-->
-                                </div>
-                                <!--slick-slide-item end-->
-                                <!--slick-slide-item-->
-                                <div class="slick-slide-item">
-                                    <!-- listing-item -->
-                                    <div class="listing-item">
-                                        <article class="geodir-category-listing fl-wrap">
-                                            <div class="geodir-category-img">
-                                                <img src="images/all/23.jpg" alt="">
-                                                <div class="overlay"></div>
-                                                <div class="list-post-counter"><span>4</span><i class="fa fa-heart"></i></div>
-                                            </div>
-                                            <div class="geodir-category-content fl-wrap">
-                                                <a class="listing-geodir-category" href="listing.html">Hotel</a>
-                                                <div class="listing-avatar"><a href="author-single.html"><img src="images/avatar/55.jpg" alt=""></a>
-                                                    <span class="avatar-tooltip">Added By  <strong>Lisa Smith</strong></span>
-                                                </div>
-                                                <h3><a href="?page=article">Serena Hotel</a></h3>
-                                                <p>Sed interdum metus at nisi tempor laoreet.  </p>
-                                                <div class="geodir-category-options fl-wrap">
-                                                    <div class="listing-rating card-popup-rainingvis" data-starrating2="5">
-                                                        <span>(7 reviews)</span>
-                                                    </div>
-                                                    <div class="geodir-category-location"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i> KN 1 AV 3 Kigali City - Rwanda</a></div>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <!-- listing-item end-->
-                                </div>
+                             @endforeach   
                                 <!--slick-slide-item end-->
                             </div>
                             <!--listing-carousel end-->
@@ -945,6 +729,8 @@
                                             <label> Email Address * </label>
                                             <input name="email" type="email"   onClick="this.select()" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" 
                                              value="{{ old('email') }}" required autofocus>
+                                             <!-- <a href="dashboard-add-listing.html" class="add-list show-reg-form modal-open">Sign In</a> -->
+                                        
 
                                             <label >Password * </label>
                                             <input name="password" type="password"   onClick="this.select()" >

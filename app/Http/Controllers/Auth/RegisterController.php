@@ -32,7 +32,7 @@ class RegisterController extends Controller
 
         public function redirectTo(){
 
-            return '/admin';
+            return '/client';
         }
 
 
@@ -56,10 +56,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            // 'First name' => 'required|string|max:255',
-            // 'Last name' => 'required|string|max:255',
-            // 'email' => 'required|string|email|max:255|unique:users',
-            // 'password' => 'required|string|min:6|confirmed',
+            'First' => 'required|string|max:255',
+            'Last' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed'
         ]);
     }
 

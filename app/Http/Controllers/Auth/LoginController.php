@@ -28,17 +28,17 @@ class LoginController extends Controller
 
     public function redirectTo(){
 
-        if(Auth()->User()->type == 3){
+        if( Auth()->User()->type == 3 ){
 
             return '/admin';
 
-        }elseif (Auth()->User()->type == 2) {
+        }elseif ( Auth()->User()->type == 2 ) {
 
             return '/operator';
 
         }else{
 
-            return '';
+            return '/client';
         }
     }
     /**
@@ -50,4 +50,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+
+
+    // protected function sendFailedLoginResponse(Request $request)
+    // {
+    //     return redirect()->route('login')
+    //         ->withInput($request->only($this->username(), 'remember'))
+    //         ->withErrors([
+    //             $this->username() => Lang::get('auth.failed'),
+    //         ]);
+    // }
+
 }

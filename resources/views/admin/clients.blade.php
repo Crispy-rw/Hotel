@@ -10,7 +10,7 @@
                             <!-- profile-edit-wrap -->
                             <div class="profile-edit-wrap">
                                 <div class="profile-edit-page-header">
-                                    <h2 class="center">Admin Dashboard</h2>
+                                    <h2 class="center">Admin View client page</h2>
                                 </div>
                                 <div class="row">
 
@@ -37,8 +37,11 @@
                                                     <td>{{$item->Firstname}}</td>
                                                     <td>{{$item->Lastname}}</td>
                                                     <td>{{$item->email}}</td>
-                                                    <td><button  class="btn btn-warning"><a href="/user/{{$item->id}}/change">Change</a></button></td>
-                                                    <td><button class="btn btn-danger">Delete</button></td>
+                                                    <td>
+                                                    <a href="/user/{{$item->id}}/change">
+                                                    <i style="font-size:24px;color:green;" class="fa fa-edit"></i>
+                                                    </a></td>
+                                                    <td><i style="font-size:24px;color:red;" class="fa fa-trash-o"></i></td>
                                                   </tr>
                                                   @endforeach
                                                 </tbody>

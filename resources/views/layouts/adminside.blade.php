@@ -1,6 +1,6 @@
                                                  
                                
-<div class="col-md-3">
+<div class="col-md-2">
     <div class="fixed-bar fl-wrap">
         <div class="user-profile-menu-wrap fl-wrap">
             <div class="user-profile-menu">
@@ -8,10 +8,10 @@
                 <ul>
                     <li><a href="#"><i class="fa fa-map-marker"></i> Location  </a></li>
                     <li><a href="/hotelowner" ><i class="fa fa-user-o"></i> Hotel Owners  </a></li>
-                    <li><a href="#"><i class="fa fa-hotel"></i>  Hotels </a></li>
+                    <li><a href="/adminhotel"><i class="fa fa-hotel"></i>  Hotels </a></li>
                     <li><a href="/roomtype"><i class="fa fa-th-list"></i>  Room Types  </a></li>
                     <li><a href="/adminclients"><i class="fa fa-user-o"></i>  Clients  </a></li>
-                    <li><a href="#"> <i class="fa fa-calendar-check-o"></i> Bookings </a></li>
+                    <li><a href="/adminbooking"> <i class="fa fa-calendar-check-o"></i> Bookings </a></li>
                 </ul>
             </div>
         </div>

@@ -18,6 +18,6 @@ class PagesController extends Controller
 
     public function client()
     {
-        return view('pages.client');
+        return view('client.client');
     }
 }

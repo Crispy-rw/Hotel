@@ -1,4 +1,4 @@
-@include('layouts.adminheader')	
+@include('layouts.operatorheader')	
             <!-- wrapper -->	
             <div id="wrapper"> 
                 <!--content -->  
@@ -49,11 +49,7 @@
                                                             <span class="booking-title">Sector </span> : 
                                                             <span class="booking-text">{{$item->sector->name}}</span>
                                                         </div>
-
-                                                        <div class="booking-details fl-wrap">
-                                                            <span class="booking-title">Booking Date </span> : 
-                                                            <span class="booking-text">02.03.2018 at 17:30 P.M</span>
-                                                        </div>
+                                                        
                                                         <div class="booking-details fl-wrap">                          
                                                             <span class="booking-title">E-mail</span> : 
                                                             <span class="booking-text">{{$item->email}}</span>
@@ -66,9 +62,25 @@
                                                             <span class="booking-title">Phone</span> : 
                                                             <span class="booking-text">{{$item->phone}}</span>
                                                         </div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc posuere convallis purus non cursus. Cras metus neque, gravida sodales massa ut. </p>
+                                                        <p>{{$item->description}} </p>
 
-                                                        <a href="hotel/{{$item->id}}"><button>Show </button></a>
+                                                        <a href="hotel/{{Crypt::encrypt($item->id)}}">
+                                                            <div class="custom-form">
+                                                                <button type="submit" class="btn  big-btn  color-bg flat-btn">View Hotel<i class="fa fa-angle-right"></i></button>
+                                                            </div>
+                                                        </a>
+                                                        <a href="hotel/{{$item->id}}/edit">
+                                                            <div class="custom-form">
+                                                                <button type="submit" class="btn  big-btn  color-bg flat-btn">Edit Hotel<i class="fa fa-angle-right"></i></button>
+                                                            </div>
+                                                        </a>
+                                                        <form action="{{route('hotel.destroy',$item->id)}}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <div class="custom-form">
+                                                                <button type="submit" class="btn  big-btn  color-bg flat-btn">Delete Hotel<i class="fa fa-angle-right"></i></button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>

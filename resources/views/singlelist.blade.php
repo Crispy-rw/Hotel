@@ -1,20 +1,18 @@
- {{-- <!-- @if(Auth::check())
+@guest
 
-    @if(Auth()->User()->id == 3){
-        @include('layouts.adminheader')
-    @elseif(Auth()->user()->id == 2)
-
-        @include('layouts.operatorheader')
-
-    @endif
-
+    @include('layouts.homeheader')
+    
 @else
 
-    @include('layouts.header')
+    @if(Auth()->User()->type == 3)
+        @include('layouts.adminheader')
+    @elseif(Auth()->User()->type == 2)
+        @include('layouts.operatorheader')
+    @else
+        @include('layouts.clientheader')
+    @endif    
 
- @endif -->   --}}
-
-@include('layouts.operatorheader')
+@endguest
 <!-- wrapper -->
 <div id="wrapper">
     <!--  content  -->
@@ -33,7 +31,7 @@
                                 <span>  Now Opening <i class="fa fa-check"></i></span>
                             </div>
                         </div>
-                        <h2>Serena Hotel Kigali<span> </h2>
+                        <h2>{{$hotel->name}}<span> </h2>
                         <span class="section-separator"></span>
                         <div class="listing-rating card-popup-rainingvis" data-starrating2="{{$hotel->star}}">
                             <span>({{$hotel->star}} stars Hotel)</span>
@@ -72,14 +70,14 @@
                         <div class="list-single-main-wrapper fl-wrap" id="sec2">
 
                             <div class="list-single-main-media fl-wrap">
-                                <img src="/storage/logo/{{$hotel->cover_image}}" class="respimg" alt="">
+                                <img src="/storage/logo/{{$hotel->cover_image}}" style="width:  679px;height: 528px;" class="respimg" alt="">
                                 <button href="" class="promo-link gradient-bg"><i class="fa fa-hotel"></i><span>{{$hotel->name}}</span></button>
                             </div>
                             <div class="list-single-main-item fl-wrap">
                                 <div class="list-single-main-item-title fl-wrap">
                                     <h3>About {{$hotel->name}}</h3>
                                 </div>
-                                <p>{{$hotel->description}}</p>
+                                <p style="min-height: 200px;">{{$hotel->description}}</p>
                                 <span class="fw-separator"></span>
 
                                <!--  <div class="list-single-main-item-title fl-wrap">
@@ -212,66 +210,46 @@
                     <!--box-widget-wrap -->
                     <div class="col-md-5">
                         <div class="box-widget-wrap">
-
-
-
-
                              <!--box-widget-item -->
                             <div class="box-widget-item fl-wrap">
                                 <div class="box-widget-item-header">
                                     <h3>Hotel Rooms: </h3>
                                 </div>
+                                @if(count($rooms) > 0)
 
-
-                                No Rooms Available
-                                <!-- <div class="box-widget widget-posts">
-                                    <div class="box-widget-content">
-                                        <ul>
-                                            <li class="clearfix">
-                                                <a href="#"  class="widget-posts-img"><img src="images/all/1.jpg"  alt=""></a>
-                                                <div class="widget-posts-descr">
-                                                    <a href="#" title="">Cafe "Lollipop"</a>
-                                                    <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 21 Mar 2017 </span>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix">
-                                                <a href="#"  class="widget-posts-img"><img src="images/all/2.jpg"  alt=""></a>
-                                                <div class="widget-posts-descr">
-                                                    <a href="#" title=""> Apartment in the Center</a>
-                                                    <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 7 Mar 2017 </span>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix">
-                                                <a href="#"  class="widget-posts-img"><img src="images/all/3.jpg"  alt=""></a>
-                                                <div class="widget-posts-descr">
-                                                    <a href="#" title="">Event in City Mol</a>
-                                                    <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 7 Mar 2017 </span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        </a>
+                                        <div class="box-widget widget-posts">
+                                        <div class="box-widget-content">
+                                            <ul>
+                                                @foreach($rooms as $item)
+                                                    <li class="clearfix">
+                                                        <a href="#"  class="widget-posts-img"><img src="/storage/room/{{$item->cover_image}}"  alt=""></a>
+                                                        <div class="widget-posts-descr">
+                                                            <span class="widget-posts-date"><i class="fa fa-info-circle"> </i>&nbsp<strong>{{$item->name}}</strong></span>
+                                                            <span class="widget-posts-date"><i class="fa fa-money"></i> {{$item->price}} Frw</span>
+                                                            <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 21 Mar 2017 </span>
+                                                            <span class="widget-posts-date"><i class="fa fa-calendar-check-o"></i> 21 Mar 2017 </span>
+                                                        </div>
+                                                        <div class="box-widget opening-hours">
+                                                        @auth    
+                                                          @if(Auth()->user()->status != 3)  
+                                                            <div class="box-widget-content">
+                                                                <a href="/book/{{Crypt::encrypt($item->id)}}/create"><button class="btn  big-btn  color-bg flat-btn">Book Now<i class="fa fa-angle-right"></i></button></a>
+                                                            </div>
+                                                          @endif  
+                                                        @endauth    
+                                            </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        
+                                        </div>       
                                     </div>
-                                </div> -->
+                                @else
+                                    No Rooms Available
+                                @endif    
                             </div>
                             <!--box-widget-item end -->
-
-                            <!--box-widget-item -->
-                            <div class="box-widget-item fl-wrap">
-                                <div class="box-widget-item-header">
-                                    <h3>Make a booking : </h3>
-                                </div>
-                                <div class="box-widget opening-hours">
-                                    <div class="box-widget-content">
-                                        <form   class="add-comment custom-form">
-                                            <button class="btn  big-btn  color-bg flat-btn">Book Now<i class="fa fa-angle-right"></i></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--box-widget-item end -->
-
-
-                           
+                            <!--box-widget-item end -->                           
                         </div>
                     </div>
                     <!--box-widget-wrap end -->

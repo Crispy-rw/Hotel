@@ -15,6 +15,7 @@
         <link type="text/css" rel="stylesheet" href="{{asset('css/plugins.css')}}">
         <link type="text/css" rel="stylesheet" href="{{asset('css/style.css')}}">
         <link type="text/css" rel="stylesheet" href="{{asset('css/color.css')}}">
+        <script type="text/javascript" href="{{asset('assets/js/app.js')}}"></script>
         <!--=============== favicons ===============-->
         <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}">
     </head>
@@ -80,8 +81,22 @@ btn{display:inline-block;font-weight:400;text-align:center;white-space:nowrap;ve
 
 
 
+.is-invalid{
+-webkit-box-shadow:0 0 0 .2rem rgba(56,193,114,.25);
+box-shadow:0 0 0 .2rem rgba(56,193,114,.25);
+font-size:80%;color:#e3342f;
+padding:.5rem;
+font-size:.875rem;
+line-height:1;
+color:#fff;
+background-color:rgba(227,52,47,.8);
+border-radius:.2rem;
+border-color:#e3342f;
+border-color:#e3342f;
+-webkit-box-shadow:0 0 0 .2rem rgba(227,52,47,.25);
+box-shadow:0 0 0 .2rem rgba(227,52,47,.25);
 
-
+}
 
 
 
@@ -113,23 +128,7 @@ btn{display:inline-block;font-weight:400;text-align:center;white-space:nowrap;ve
             <header class="main-header dark-header fs-header sticky">
                 <div class="header-inner">
                     <div class="logo-holder">
-                        <a href="index.html"><img src="{{asset('images/logo.png')}}" alt=""></a>
-                    </div>
-                    <div class="header-search vis-header-search">
-                        <div class="header-search-input-item">
-                            <input type="text" placeholder="Keywords" value=""/>
-                        </div>
-                        <div class="header-search-select-item">
-                            <select data-placeholder="All Categories" class="chosen-select" >
-                                <option>All Categories</option>
-                                <option>Shops</option>
-                                <option>Hotels</option>
-                                <option>Restaurants</option>
-                                <option>Fitness</option>
-                                <option>Events</option>
-                            </select>
-                        </div>
-                        <button class="header-search-button" >Search</button>
+                        <a href="/"><img src="{{asset('images/logo.png')}}" alt=""></a>
                     </div>
                     <div class="show-search-button"><i class="fa fa-search"></i> <span>Search</span></div>
                     @guest
@@ -163,19 +162,11 @@ btn{display:inline-block;font-weight:400;text-align:center;white-space:nowrap;ve
                         </ul>
                     </div>
                     @endif
-                    <!-- nav-button-wrap--> 
-                    <!-- <div class="nav-button-wrap color-bg">
-                        <div class="nav-button">
-                            <span></span><span></span><span></span>
-                        </div>
-                    </div> -->
-                    <!-- nav-button-wrap end-->
-                    <!--  navigation --> 
                     <div class="nav-holder main-menu">
                         <nav>
                             <ul>
                                 <li>
-                                    <a href="#">Home </a>
+                                    <a href="/">Home </a>
                                 </li>
                                 <li>
                                     <a href="#">Listings </a>
